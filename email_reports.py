@@ -68,10 +68,14 @@ def get_csv_report_file(base_dir):
     reports = os.path.join(base_dir, 'Reports')
     rep_folder = os.path.join(base_dir, os.path.join(
         reports, datetime.datetime.now().strftime('%Y_%m_%d')))
-    for file in os.listdir(rep_folder):
-        logger.debug("Report find to be emailed: {}".format(
-            os.path.basename(file)))
-        return file
+
+    if os.path.isdir(rep_folder):
+        for file in os.listdir(rep_folder):
+            logger.debug("Report find to be emailed: {}".format(
+                os.path.basename(file)))
+            return file
+    else:
+        return None
 
 
 def send_email(to, from_email, subject, base_dir, has_attachment=""):
