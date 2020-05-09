@@ -114,31 +114,21 @@ def send_email(to, from_email, subject, base_dir, has_attachment=""):
                             "attachment; filename= "+os.path.basename(filename))
             msg.attach(part)
 
-            recipients = [to]+cc_list
-            text = msg.as_string()
-            server = smtplib.SMTP(
-                config.smtp_host, config.port, config.timeout)
-            server.starttls()
-            server.login(config.username, config.password)
-            server.sendmail(from_email, recipients, text)
-            server.quit()
-
-            return {"status": 200}
-
         else:
             body = noreport.mail_string.format(
                 datetime.datetime.now().strftime("%d %b %Y"))
             msg.attach(MIMEText(body, 'html'))
-            recipients = [to]+cc_list
-            text = msg.as_string()
-            server = smtplib.SMTP(
-                config.smtp_host, config.port, config.timeout)
-            server.starttls()
-            server.login(config.username, config.password)
-            server.sendmail(from_email, recipients, text)
-            server.quit()
 
-            return {"status": 200}
+        recipients = [to]+cc_list
+        text = msg.as_string()
+        server = smtplib.SMTP(
+            config.smtp_host, config.port, config.timeout)
+        server.starttls()
+        server.login(config.username, config.password)
+        server.sendmail(from_email, recipients, text)
+        server.quit()
+
+        return {"status": 200}
     except Exception as Error:
 
         if Error:
