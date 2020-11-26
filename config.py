@@ -14,3 +14,6 @@ cc_emails = ["sachins@rincon.co.in"]
 smtp_host = "smtp.gmail.com"
 port = 587
 timeout = 120  # seconds
+
+# last xx hours report configguration
+hours = 24
